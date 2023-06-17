@@ -12,11 +12,25 @@ function App() {
     const onLog = (e: React.FormEvent) =>{
       e.preventDefault();
 
+      console.log("new Date()", new Date())
+
+      let today = new Date();
+      let timestamp = today.getFullYear() + "-";
+      timestamp += today.getMonth() + 1 + "-";  
+      timestamp += today.getDate() + " ";  
+      timestamp += today.getHours() + ":";  
+      timestamp += today.getMinutes().toString().padStart(2,'0') + ":";  
+      timestamp += today.getSeconds().toString().padStart(2,'0');  
+
+      console.log("timestap", timestamp)
+
       const log = {
-        timestamp: new Date(),
+        timestamp,
         levelMsg: "INFO",
         message: "Zo maar een infootje"
       }
+
+      console.log("log", log.timestamp)
 
       // Send Company request to DB
       const [method, path]:[Method, string] = ["POST", `api/logs`];

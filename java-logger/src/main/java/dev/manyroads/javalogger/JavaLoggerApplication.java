@@ -19,6 +19,7 @@ public class JavaLoggerApplication implements CommandLineRunner {
 	static Connection _connection   = null;
 
 	public static void main(String[] args) {
+		logger.info("Main started");
 		SpringApplication.run(JavaLoggerApplication.class, args);
 	}
 

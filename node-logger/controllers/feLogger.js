@@ -1,23 +1,30 @@
+const logger  = require("../logger/logger.js");
+const daoLogs = require("../daos/daoLogs.js");
+
 /**
  * Module to receives logs from the Frontend and store them in the audit database
  * 
- * @param {Express} server  : Express server passed from main
- * @param {Mysql}   db      : Mysql database passed from main 
+ * @param {Express} server    : Express server passed from main
+ * @param {Mysql}   auditPool : Mysql database passed from main 
  */
-const logger  = require("../logger/logger.js");
-const dao     = require("../daos/daoLogs.js");
 
-module.exports = function (server, db) {
+module.exports = function (server, auditPool) {
 
-    server.route('/api/logs').post((req, res) => {
+    // Save log to db
+    server.route('/api/logs').post((req, response) => {
   
-      console.log("/api/logs: " , req.body);
+      //console.log("/api/logs: " , req.body);
 
-      
-      if (dao.saveLog(req, db)) res.status(200).send(JSON.stringify({ "status": "ok" }));
-      else res.status(500).send(JSON.stringify({ "status": "un_ok" }));
-  /*
-      res.status(200).send(JSON.stringify({ "status": "ok" }));
-   */   
+      daoLogs.saveLog(req, auditPool)
+      .then(
+        result => {
+          //console.log("Back from Promise: ", result)
+          response.status(200).send(JSON.stringify({ "status": "ok" }));
+        },
+        rej => { 
+          console.log("Err from Promise: ", rej);
+          response.status(500).send(JSON.stringify({ "status": "un_ok" }))
+        }
+      )
     })
   }

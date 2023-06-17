@@ -27,15 +27,6 @@ server.use(cors());
  * Initialisation NodeBE
 */
 const init = () => {
-    /*
-    try {
-        nonExistentFunction();
-      } catch (err) {
-        logger.error(err);
-        // Expected output: ReferenceError: nonExistentFunction is not defined
-        // (Note: the exact output may be browser-dependent)
-      }
-      */
     
     // Initialise Controller FE logger
     //routes(server, pool);
