@@ -16,7 +16,6 @@ public class JavaLoggerApplication implements CommandLineRunner {
 
 	// ---- Constants ----
 	private static final Logger logger = LogManager.getLogger(JavaLoggerApplication.class);
-	static Connection _connection   = null;
 
 	public static void main(String[] args) {
 		logger.info("Main started");
@@ -34,13 +33,6 @@ public class JavaLoggerApplication implements CommandLineRunner {
 
 		System.out.println("Main CommandLineRunner testing");
 
-		try{
-			_connection     = DriverManager.getConnection("getDB_LOCAL_URL()");
-		}
-		catch (SQLException e) {
-			logger.error(e.getMessage());
-			printStandardError(e);
-		}
 	}
 
 	// Print error information to console.
