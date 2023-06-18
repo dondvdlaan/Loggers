@@ -7,6 +7,7 @@ const mysql = require("mysql2");
 require('dotenv').config();
 
 const auditPool = mysql.createPool({
+    
     connectionLimit : 10,
     host:     process.env.DB_LOCAL_SERVER_IP_ADDRESS,
     port:     process.env.DB_LOCAL_PORT,

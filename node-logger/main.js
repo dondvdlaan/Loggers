@@ -3,8 +3,6 @@ const express       = require("express");
 const server        = express();
 
 const cors          = require("cors");
-//const morgan        = require("morgan");
-//const cookieParser  = require("cookie-parser");
 const bodyParser    = require("body-parser");
 
 // ---- Modules ----
@@ -29,13 +27,11 @@ server.use(cors());
 const init = () => {
     
     // Initialise Controller FE logger
-    //routes(server, pool);
     feLogger(server, auditPool);
     
     // ---- Starting up Node backend ----
     server.listen(serverPort, () => {
         
-        //console.log(`File ${process.env.ENV_FILE} loaded.\n`);
         console.log(`Server listening at ${serverPort}\n`);
         logger.info('Server started');
     });

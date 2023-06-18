@@ -1,45 +1,36 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import { Method } from 'axios';
-import { ApiSimplified } from './shared/Api';
+import { logger } from './shared/Logger';
 
-
+/**
+ * Module to send a test event to the audit database at Node-logger
+ */
 function App() {
 
+  // Simulating a fetch error
+  const fetchData = async () => {
 
-    // *********** Event handling ***********
-    const onLog = (e: React.FormEvent) =>{
+    try {
+      return await fetch("https://some-url-that-might-fail.com");
+    } 
+    catch (e) {
+      logger.error(e);
+      return e;
+    }
+  };
+
+  // *********** Event handling ***********
+  const onLog = (e: React.FormEvent) =>{
+    
       e.preventDefault();
 
-      console.log("new Date()", new Date())
+      // Simulate an error
+      fetchData();
 
-      let today = new Date();
-      let timestamp = today.getFullYear() + "-";
-      timestamp += today.getMonth() + 1 + "-";  
-      timestamp += today.getDate() + " ";  
-      timestamp += today.getHours() + ":";  
-      timestamp += today.getMinutes().toString().padStart(2,'0') + ":";  
-      timestamp += today.getSeconds().toString().padStart(2,'0');  
-
-      console.log("timestap", timestamp)
-
-      const log = {
-        timestamp,
-        levelMsg: "INFO",
-        message: "Zo maar een infootje"
-      }
-
-      console.log("log", log.timestamp)
-
-      // Send Company request to DB
-      const [method, path]:[Method, string] = ["POST", `api/logs`];
-
-      ApiSimplified(method, path, log)
-      .then((res)=> console.warn("back from Api logging: ", res))
-      .catch(err=> console.log(err))
+      logger.info({message: "Info test message.."});
   }
 
+  // Displays Logging button to start error simulating and logging
   return (
     <div className="App">
       <header className="App-header">

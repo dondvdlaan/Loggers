@@ -5,7 +5,7 @@ const logger    = require("../logger/logger.js");
  * 
  * @param   req         :   Request received
  * @param   auditPool   :   Database object
- * return   Promise     :   Promise res/rej send back to caller
+ * @return   Promise    :   Promise res/rej send back to caller
  */
 const saveLog = (req, auditPool) =>{
     
@@ -13,8 +13,8 @@ const saveLog = (req, auditPool) =>{
 
             auditPool.query(
                 `INSERT INTO logs (application, logtime, levelmsg, message)
-                VALUES( ?, ?, ?, ?)`,
-                ["REACT-FE",
+                 VALUES( ?, ?, ?, ?)`,
+                    ["REACT-FE",
                     req.body.timestamp,
                     req.body.levelMsg,
                     req.body.message,

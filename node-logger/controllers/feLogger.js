@@ -8,7 +8,8 @@ const daoLogs = require("../daos/daoLogs.js");
  * @param {Mysql}   auditPool : Mysql database passed from main 
  */
 
-module.exports = function (server, auditPool) {
+const feLogger = (server, auditPool) => {
+  //module.exports = function (server, auditPool) {
 
     // Save log to db
     server.route('/api/logs').post((req, response) => {
@@ -28,3 +29,5 @@ module.exports = function (server, auditPool) {
       )
     })
   }
+
+  module.exports = feLogger;

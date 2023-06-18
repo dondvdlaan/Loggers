@@ -52,14 +52,13 @@ module.exports = class MySQLTransport extends transport {
     }
 
     /**
-     * Function log (info, callback)
+     * Function for logging
      * 
-     * {level, msg, [meta]} = info
-     * @level {string} Level at which to log the message.
-     * @msg {string} Message to log
-     * @meta {Object} **Optional** Additional metadata to attach
-     * @callback {function} Continuation to respond to when complete.
-     * Core logging method exposed to Winston. Metadata is optional.
+     * @info {level, msg, [meta]}   : to be destructured
+     * @level {string}              : Message level
+     * @msg {string}                : Message to be logged
+     * @meta {Object} **Optional**  : Additional metadata
+     * @callback {function}         : Continuation to respond to when complete.
      */
 
    log(info, callback) {
@@ -68,12 +67,12 @@ module.exports = class MySQLTransport extends transport {
        const { level, message, ...winstonMeta } = info;
 
        // Compose log object 
-       const log = {};
-       log.application = "NodeBE";
-       log.timestamp   = new Date();
+       const log        = {};
+       log.application  = "NodeBE";
+       log.timestamp    = new Date();
        //log.meta        = winstonMeta;
-       log.level       = level.replace(/\u001b\[[0-9]{1,2}m/g, '');
-       log.message     = message;
+       log.level        = level.replace(/\u001b\[[0-9]{1,2}m/g, '');
+       log.message      = message;
 
        // Compose sql and values
        const sql = `INSERT INTO ${this.options.tableName} (application, logtime, levelmsg, message) 

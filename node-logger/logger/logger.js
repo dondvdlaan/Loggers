@@ -3,7 +3,9 @@
  */
 
 const winston           = require('winston')
+
 const MySQLTransport    = require("./mysqlTransport")
+
 
 const optionsLogger = {
     host:       'localhost',
@@ -14,6 +16,7 @@ const optionsLogger = {
 };
 
 const logger = winston.createLogger({
+    
     level: 'debug',
     format: winston.format.json(),
     defaultMeta: { service: 'user-service' },
