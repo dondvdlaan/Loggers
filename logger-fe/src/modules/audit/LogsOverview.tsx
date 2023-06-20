@@ -1,5 +1,5 @@
 import { ReactElement } from "react";
-import { useApi } from "../../shared/Api"
+import { useApi, useApi3 } from "../../shared/Api"
 import { Log } from "../../types/Log"
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 
@@ -7,7 +7,7 @@ import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 export const LogsOverview =(): ReactElement =>{
 
     // ---- Constants ----
-    const [logs, setLogs] = useApi<Log[]>("api/allLogs");
+    const [logs, setLogs] = useApi3<Log[]>("api/allLogs");
 
     if(!logs) return (<p>Awaiting logs..</p>);
 

@@ -2,9 +2,9 @@
 export interface Log {
 
     logID: number,
-    application: String,
+    application: string,
     logTime: Date,
-    levelMsg: String,
-    message: String
+    levelMsg: string,
+    message: string
 
 }

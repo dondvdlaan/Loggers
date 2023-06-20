@@ -1,13 +1,16 @@
 import Layout from './Layout';
 import { BrowserRouter } from 'react-router-dom';
 import Routing from './Routing';
+import ErrorContainer from './errorHandling/ErrorContainer';
 
 function App() {
   
   return (
   <BrowserRouter>
     <Layout>
-      <Routing />
+      <ErrorContainer>
+        <Routing />
+      </ErrorContainer>
     </Layout>
   </BrowserRouter>
   );

@@ -8,4 +8,4 @@ Summary
 - node-logger   : winston and winston-transport dependencies
 - react-fe      : vanilla js logger
 - support_audit : mysql db with logs table
-- logger-fe     : REACT log viewer wizj MUI table
+- logger-fe     : REACT log viewer with MUI table

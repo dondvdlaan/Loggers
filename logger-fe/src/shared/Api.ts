@@ -1,8 +1,10 @@
 import axios, { AxiosResponse, Method }                   from "axios";
 import { Dispatch, SetStateAction, useEffect, useState }  from "react";
+import useErrorHandler from "../modules/errorHandling/ErrorHandler";
 
 // ********************* Constanten und Typen *********************
-export const baseUrl = `http://localhost:8080/`;
+export const baseUrl  = `http://localhost:8080/`;
+
 
 type SetState<T> = Dispatch<SetStateAction<T>>;
 
@@ -18,7 +20,7 @@ export function useApi<T>(path: string): [T | undefined, SetState<T | undefined>
     const [data, setData] = useState<T>();
 
     useEffect(() => {
-      api("GET", path, setData);
+      api("GET", path, setData)
     }, [path]);
 
     // console.log("data "+JSON.stringify(data))
@@ -49,7 +51,43 @@ if(condition) api("GET", path, setData);
 
 return [data, setData];
 }
+/*
+ * Useful for http data as a dependency in rendering
+ *
+ * @param   method  [Method] : http method
+ * @param   path    [string] : relative path to baseUrl
+ * @return, Response Data
+ */
+export function useApi3<T>(path: string): [T | undefined, SetState<T | undefined>] 
+  {
+    const [data, setData] = useState<T>();
+    const setVisibleError = useErrorHandler();
 
+    useEffect(() => {
+      //api("GET", path, setData)
+
+        const config ={
+            method: "GET",
+            url: `${baseUrl}${path}`,
+            data,
+        } ;
+
+        console.log('API config:',config);
+        
+        axios(config)
+        .then((response: AxiosResponse<T>) => {
+          // console.log("response.data", response.data)  
+          return setData(response.data);
+        })
+        .catch(err =>{
+          console.log({err})
+          setVisibleError(`${err.response.data.error}`, err," Please contact the IT department") ;
+        } )
+    }, [path]);
+
+    // console.log("data "+JSON.stringify(data))
+    return [data, setData];
+  }
 /*
  * Useful for calls on events or in conditions
  *
@@ -71,10 +109,11 @@ export function api<T>(
 
         console.log('API config:',config);
         
-        axios(config).then((response: AxiosResponse<T>) => {
+        axios(config)
+        .then((response: AxiosResponse<T>) => {
           // console.log("response.data", response.data)  
           return callback(response.data);
-        });
+        })
 }
 
 /**
@@ -94,8 +133,8 @@ export function ApiSimplified<T>(method: Method, path: string, data = {}) {
       } ;
 
       console.log('API simple config:',config);
-      
-      return axios(config)
-      // .then((response: AxiosResponse<T>) => response.data);
-      // .then((response: AxiosResponse<T>) => console.log('response.data: ', response.data));
+
+       return axios(config)
+       // .then((response: AxiosResponse<T>) => response.data);
+       // .then((response: AxiosResponse<T>) => console.log('response.data: ', response.data));
 }

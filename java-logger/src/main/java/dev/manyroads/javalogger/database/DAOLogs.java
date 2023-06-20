@@ -21,7 +21,7 @@ public class DAOLogs {
 
     // ---- Constants ----
     private static final Logger logger = LogManager.getLogger(DAOLogs.class);
-    protected static final String COL_NAME_LOG_ID = "logID";
+    protected static final String COL_NAME_LOG_ID = "logIDv";
     protected static final String COL_NAME_APPLICATION = "application";
     protected static final String COL_NAME_LOG_TIME = "logtime";
     protected static final String COL_NAME_LEVEL_MSG = "levelmsg";
@@ -37,7 +37,7 @@ public class DAOLogs {
      *
      * @return allDataRecordsFromDbTbl : {@link List} Objects extended from {@link Log} : List of all records
      */
-    public List<Log> getAllDataRecordsFromDbTbl(Connection dbRwConnection) {
+    public List<Log> getAllDataRecordsFromDbTbl(Connection dbRwConnection) throws Exception {
 
         //Decl. and Init
         List<Log> allLogsFromDbTable = new ArrayList<>();
@@ -64,10 +64,12 @@ public class DAOLogs {
                 //6. Modelobjekt zur passenden Liste addiern
                 allLogsFromDbTable.add(logFromDbTable);
             }
-        } catch (Exception e) {
+       }
+        // Propagating Errors Up the Call Stack at AuditController
+        /*  catch (Exception e) {
             logger.error(e);
             e.printStackTrace();
-        } finally {
+        }*/ finally {
             if (dbStatementToExecute != null) {
                 //5. Schliessen der des Statements
                 try {

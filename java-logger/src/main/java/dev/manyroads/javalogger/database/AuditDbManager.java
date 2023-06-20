@@ -98,19 +98,21 @@ public class AuditDbManager {
      *
      * @return allUsersFromDbTable : {@link List} - {@link Log}: Alle Logs aus Db-Tabelle
      */
-    public List<Log> getAllLogsFromDb() {
+    public List<Log> getAllLogsFromDb() throws Exception {
 
         List<Log> allLogsFromDb = new ArrayList<>();
 
         //Neue Verbindung erstellen
-        try {
+        // Propagating Errors Up the Call Stack at AuditController
+       // try {
             if (this.isDatabaseOnline()) {
                 allLogsFromDb = this.daoLogs.getAllDataRecordsFromDbTbl(this.getRwDbConnection());
             }
-        } catch (Exception e) {
+      /*  } catch (Exception e) {
+            logger.error(e.getMessage());
             System.err.println(e.getMessage());
         }
-
+*/
         return allLogsFromDb;
     }
 }
