@@ -21,7 +21,7 @@ public class DAOLogs {
 
     // ---- Constants ----
     private static final Logger logger = LogManager.getLogger(DAOLogs.class);
-    protected static final String COL_NAME_LOG_ID = "logIDv";
+    protected static final String COL_NAME_LOG_ID = "logID";
     protected static final String COL_NAME_APPLICATION = "application";
     protected static final String COL_NAME_LOG_TIME = "logtime";
     protected static final String COL_NAME_LEVEL_MSG = "levelmsg";
